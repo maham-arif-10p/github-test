@@ -1,24 +1,23 @@
-// Two methods for timers - setTimeout and SetInterval (single / repeating)
-
-function simpleMessage() {
-	alert("This is just an alert box");
+function adjustStyle() {
+    var width = 0;
+    // get the width.. more cross-browser issues
+    if (window.innerHeight) {
+        width = window.innerWidth;
+    } else if (document.documentElement && document.documentElement.clientHeight) {
+        width = document.documentElement.clientWidth;
+    } else if (document.body) {
+        width = document.body.clientWidth;
+    }
+    // now we should have it
+    if (width < 600) {
+        document.getElementById("myCSS").setAttribute("href", "_css/narrow.css");
+    } else {
+        document.getElementById("myCSS").setAttribute("href", "_css/main.css");
+    }
 }
 
-// settimeout is in milliseconds
+// now call it when the window is resized.
+window.onresize = function () {
+    adjustStyle();
+};
 
-var myImage = document.getElementById("mainImage");
-
-var imageArray = ["_images/overlook.jpg","_images/winery_sign.jpg","_images/lunch.jpg",
-				  "_images/bigSur.jpg","_images/flag_photo.jpg","_images/mission_look.jpg"];
-var imageIndex = 0;
-
-function changeImage() {
-	myImage.setAttribute("src",imageArray[imageIndex]);
-	imageIndex++;
-	if (imageIndex >= imageArray.length) {
-		imageIndex = 0;
-	}
-}
-
-// setInterval is also in milliseconds
-setInterval(changeImage,5000);
